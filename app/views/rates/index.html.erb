@@ -1,0 +1,186 @@
+<%= javascript_include_tag 'highcharts/highcharts' %>
+<%= javascript_include_tag 'highcharts/highcharts-more' %>
+<%= javascript_include_tag 'highcharts/modules/exporting' %>
+<%= javascript_include_tag 'highcharts/modules/export-data' %>
+<%= javascript_include_tag 'highcharts/modules/accessibility' %>
+
+<div id="container"></div>
+<button type="button" class="btn btn-light position-absolute top-0 start-0 m-3" data-bs-toggle="modal" data-bs-target="#Modal">
+Text mode
+</button>
+<div class="modal fade" id="Modal">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h1 class="modal-title">Exchange Rates</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <div class="row">
+               <div class="col-sm-6">
+                  <div class="card">
+                     <div class="card-body">
+                        <p class="card-text">US Dollar: <%= @current_exchange["USD"] %></p>
+                        <p class="card-text">Euro: <%= @current_exchange["EUR"] %></p>
+                        <p class="card-text">Swiss Franc: <%= @current_exchange["CHF"] %></p>
+                        <p class="card-text">British Pound: <%= @current_exchange["GBP"] %></p>
+                        <p class="card-text">Swedish Krona: <%= @current_exchange["SEK"] %></p>
+                        <p class="card-text">Danish Krone: <%= @current_exchange["DKK"] %></p>
+                        <p class="card-text">Norwegian Krone: <%= @current_exchange["NOK"] %></p>
+                        <p class="card-text">Czech Koruna: <%= @current_exchange["CZK"] %></p>
+                        <p class="card-text">Polish Zloty: <%= @current_exchange["PLN"] %></p>
+                        <p class="card-text">Australian Dollar: <%= @current_exchange["AUD"] %></p>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-6">
+                  <div class="card">
+                     <div class="card-body">
+                        <p class="card-text">New Zealand Dollar: <%= @current_exchange["NZD"] %></p>
+                        <p class="card-text">Canadian Dollar: <%= @current_exchange["CAD"] %></p>
+                        <p class="card-text">Mexican Peso: <%= @current_exchange["MXN"] %></p>
+                        <p class="card-text">Singapore Dollar: <%= @current_exchange["SGD"] %></p>
+                        <p class="card-text">Hong Kong Dollar: <%= @current_exchange["HKD"] %></p>
+                        <p class="card-text">Chinese yuan: <%= @current_exchange["CNH"] %></p>
+                        <p class="card-text">Japanese Yen: <%= @current_exchange["JPY"] %></p>
+                        <p class="card-text">Turkish Lira: <%= @current_exchange["TRY"] %></p>
+                        <p class="card-text">Israeli Sheqel: <%= @current_exchange["ILS"] %></p>
+                        <p class="card-text">Russian Rouble: <%= @current_exchange["RUB"] %></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div style="padding: 2em 0;font-style: italic;"><small>Timestamp of the last API request: <%= @timestamp %></small></div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   Highcharts.chart('container', {
+       chart: {
+           type: 'packedbubble',
+           height: '100%'
+       },
+       title: {
+           text: 'Exchange Rates'
+       },
+       subtitle: {
+           text: 'Source: OpenExchangeRates.org'
+       },
+       tooltip: {
+           useHTML: true,
+           pointFormat: '<b>{point.name}:</b> {point.value}'
+       },
+       plotOptions: {
+           packedbubble: {
+               minSize: '30%',
+               maxSize: '120%',
+               zMin: 0,
+               zMax: 1000,
+               layoutAlgorithm: {
+                   splitSeries: false,
+                   gravitationalConstant: 0.02
+               },
+               dataLabels: {
+                   enabled: true,
+                   format: '{point.name}',
+                   style: {
+                       color: 'black',
+                       textOutline: 'none',
+                       fontWeight: 'normal'
+                   }
+               }
+           }
+       },
+       credits: {
+       enabled: true
+       },
+       series: [{
+           name: 'Europe',
+           data: [{
+               name: 'EUR',
+               value: <%= @current_exchange["EUR"] %>
+           }, {
+               name: 'CHF',
+               value: <%= @current_exchange["CHF"] %>
+           },
+           {
+               name: "GBP",
+               value: <%= @current_exchange["GBP"] %>
+           },
+           {
+               name: "SEK",
+               value: <%= @current_exchange["SEK"] %>
+           },
+           {
+               name: "DKK",
+               value: <%= @current_exchange["DKK"] %>
+           },
+           {
+               name: "NOK",
+               value: <%= @current_exchange["NOK"] %>
+           },
+           {
+               name: "CZK",
+               value: <%= @current_exchange["CZK"] %>
+           },
+           {
+               name: "PLN",
+               value: <%= @current_exchange["PLN"] %>
+           }]
+       }, {
+           name: 'Oceania',
+           data: [{
+               name: "AUD",
+               value: <%= @current_exchange["AUD"] %>
+           },
+           {
+               name: "NZD",
+               value: <%= @current_exchange["NZD"] %>
+           }]
+       }, {
+           name: 'North America',
+           data: [{
+               name: "USD",
+               value: <%= @current_exchange["USD"] %>
+           }, {
+               name: "CAD",
+               value: <%= @current_exchange["CAD"] %>
+           }, {
+               name: "MXN",
+               value: <%= @current_exchange["MXN"] %>
+           }]
+       }, {
+           name: 'Asia',
+           data: [
+           {
+               name: "SGD",
+               value: <%= @current_exchange["SGD"] %>
+           },
+           {
+               name: "HKD",
+               value: <%= @current_exchange["HKD"] %>
+           },
+           {
+               name: "JPY",
+               value: <%= @current_exchange["JPY"] %>
+           },
+           {
+               name: "CNH",
+               value: <%= @current_exchange["CNH"] %>
+           },
+           {
+               name: "RUB",
+               value: <%= @current_exchange["RUB"] %>
+           },
+           {
+               name: "TRY",
+               value: <%= @current_exchange["TRY"] %>
+           },
+           {
+               name: "ILS",
+               value: <%= @current_exchange["ILS"] %>
+           }]
+       }]
+   });
+</script>
