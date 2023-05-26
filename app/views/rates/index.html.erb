@@ -1,9 +1,3 @@
-<%= javascript_include_tag 'highcharts/highcharts' %>
-<%= javascript_include_tag 'highcharts/highcharts-more' %>
-<%= javascript_include_tag 'highcharts/modules/exporting' %>
-<%= javascript_include_tag 'highcharts/modules/export-data' %>
-<%= javascript_include_tag 'highcharts/modules/accessibility' %>
-
 <div id="container"></div>
 <button type="button" class="btn btn-light position-absolute top-0 start-0 m-3" data-bs-toggle="modal" data-bs-target="#Modal">
 Text mode
@@ -56,7 +50,8 @@ Text mode
    </div>
 </div>
 <script>
-   Highcharts.chart('container', {
+document.addEventListener('DOMContentLoaded', function () {
+    const chart = Highcharts.chart('container', {
        chart: {
            type: 'packedbubble',
            height: '100%'
@@ -183,4 +178,5 @@ Text mode
            }]
        }]
    });
+});
 </script>
