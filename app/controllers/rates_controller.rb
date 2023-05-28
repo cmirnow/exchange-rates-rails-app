@@ -10,6 +10,5 @@ class RatesController < ApplicationController
     def index
 		@current_exchange = get_current_exchange[0]
 		@timestamp = get_current_exchange[1]
-		@page_title = 'Current Exchange Rates on Rails'
 	end
 end
